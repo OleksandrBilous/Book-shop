@@ -32,13 +32,22 @@ class Order (db.Model):
     book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
     person_id = db.Column(db.Integer, db.ForeignKey('person.id'), nullable=False)
 
+
 @manager.user_loader
 def load_user(user_id):
     return person.query.get(user_id)
 
-@app.route("/")
+
+@app.route("/", methods = ["GET","POST"])
 def main_page():
-    return render_template('index.html')
+    kniga = Book.query.filter_by(id = 3).first()
+    print(kniga.id)
+    print(kniga.name)
+    print(kniga.description)
+    print(kniga.author)
+    print(kniga.price)
+    print(kniga.image_link)
+    return render_template('index.html', kniga=kniga)
 
 
 if __name__ == '__main__':

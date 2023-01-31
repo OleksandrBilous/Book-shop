@@ -91,3 +91,38 @@ li a:hover:not(.active) {
     left: 33%;
 }
 
+.product {
+  text-align: center;
+  display: block;
+  width: 12%;
+  padding: auto;
+  border:  solid black;
+  border-radius: 7%;
+  position: absolute;
+  top: 42%;
+  right: 50%;
+}
+
+.book_name{
+    font-size: 170%;
+}
+
+
+.book_price{
+    font-size: 130%;
+}
+
+.button__buy {
+    margin: 0 auto;
+    display: block;
+    width: 80%;
+    height: 33px;
+    border-radius: 14px;
+    background: #000;
+    font-size: 130%;
+    text-align: center;
+    color: #ffffffff;
+    line-height: 81.51%;
+    letter-spacing: 0.14em;
+    box-sizing: border-box;
+}
