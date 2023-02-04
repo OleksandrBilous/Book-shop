@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <div class="container">
+        {% for i in kniga %}
+            <div class="product">
+                <p class="book_name">{{i.name}}</p>  
+                <img class="img" src={{i.image_link}}>
+                <button class="button__buy">buy</button>
+                <p class="book_price">{{i.price}} $</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock%}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link rel="stylesheet" href="static/styles/main.css">
+    <title>Home page</title>
+</head>
+<body>
+
+    <div class="page">
+
+        <ul class="top">
+            <li class="bar"><a href="{{url_for('main_page')}}">BookShelf</a></li> <!-- Image--> 
+            <li class="bar"><a class="active" href="{{url_for('shop')}}">Shop</a></li>
+            <li class="bar"><a href="#">Contact</a></li>
+            <li class="bar"><a href="#">About us</a></li>
+            <li class="barr"><a href="#">Registration</a></li>
+            <li class="barr"><a href="#">Login</a></li>
+            <li class="barr"><a href="#">Bucket</a></li>
+        </ul>
+
+        {% block content %}
+            {# Temlpate here #}
+        {% endblock %}
+        
+        <footer class="foot">
+            <p class="first">© Book Shop «BookShelf» 2022–2023.</p>
+            <p class="second">Contact number: + 38098974418.</p>
+            <p class="third">Address: Kovalsky street 5.</p>
+        </footer>
+    </div>
+    
+
+</body>
+</html>
+

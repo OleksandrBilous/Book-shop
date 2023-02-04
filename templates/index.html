@@ -1,59 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+{% extends "base.html" %}
 
-    <link rel="stylesheet" href="static/styles/main.css">
-    <title>Home page</title>
-</head>
-<body>
-    <div class="page">
-
-        <ul class="top">
-            <li class="bar"><a href="#">BookShelf</a></li> <!-- Image--> 
-            <li class="bar"><a class="active" href="#">Shop</a></li>
-            <li class="bar"><a href="#">Contact</a></li>
-            <li class="bar"><a href="#">About us</a></li>
-            <li class="barr"><a href="#">Registration</a></li>
-            <li class="barr"><a href="#">Login</a></li>
-            <li class="barr"><a href="#">Bucket</a></li>
-        </ul>
-
-        
+{% block content %}
+<div class>
+    <div>
         <h1 class="hello">Welcome to the BookShelf !</h1>
-        <a class="main_button" href="#">Start your book journey with us</a>
+        <a class="main_button" href="{{url_for('shop')}}">Start your book journey with us</a>       
+    </div>
+      
 
-        <div class="product">
-            <p class="book_name">{{kniga.name}}</p>  
-            <img src={{kniga.image_link}} width = "70%" height = "95%">
-            <button class="button__buy">buy</button>
-            <p class="book_price">{{kniga.price}} $</p>
-        </div>
-    
-          
-        <!--
+    <div class="container">
+        {% for i in kniga %}
+            <div class="product">
+                <p class="book_name">{{i.name}}</p>  
+                <img class="img" src={{i.image_link}}>
+                <button class="button__buy">buy</button>
+                <p class="book_price">{{i.price}} $</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!--
         <img src= "/static/img/451.jpg" width = "120" height = "180"> 
         <img src= "/static/img/1984.jpg" width = "120" height = "180"> 
         <img src= "/static/img/harry.jpg" width = "120" height = "180"> 
         <img src= "/static/img/mask.jpg" width = "120" height = "180"> 
         <img src= "/static/img/miss.jpeg" width = "120" height = "180">
         <img src= "/static/img/moby_dick.jpg" width = "120" height = "180">   
-        -->
-        
-        
-        <footer class="foot">
-            <p class="first">© Book Shop «BookShelf» 2022–2023.</p>
-            <p class="second">Contact number: + 38098974418.</p>
-            <p class="third">Address: Kovalsky street 5.</p>
-        </footer>
-    </div>
-    
+    -->
+</div>
 
-</body>
-</html>
-
+{% endblock%}

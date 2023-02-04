@@ -1,3 +1,6 @@
+from dataclasses import dataclass
+import typing as t
+
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
@@ -11,6 +14,13 @@ db =SQLAlchemy(app)
 
 migrate = Migrate(app, db)
 manager = LoginManager(app)
+
+@dataclass
+class BookView:
+    name: str
+    image_link: str
+    price: int
+
 
 class Book (db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -40,15 +50,30 @@ def load_user(user_id):
 
 @app.route("/", methods = ["GET","POST"])
 def main_page():
-    kniga = Book.query.filter_by(id = 3).first()
-    print(kniga.id)
-    print(kniga.name)
-    print(kniga.description)
-    print(kniga.author)
-    print(kniga.price)
-    print(kniga.image_link)
-    return render_template('index.html', kniga=kniga)
+    knigs = Book.query.limit(3).all()
+    book_views = []
+    for kniga in knigs:
+        print(1)
+        book_views.append(BookView(
+            name=f'{kniga.name[:20]}...' if len(kniga.name) > 20 else kniga.name,
+            image_link=kniga.image_link,
+            price=kniga.price,
+        ))
+    return render_template('index.html', kniga=book_views)
 
+
+
+@app.route("/shop", methods = ["GET","POST"])
+def shop():
+    knigs = Book.query.limit(6).all()
+    book_views = []
+    for kniga in knigs:
+        book_views.append(BookView(
+            name=f'{kniga.name[:20]}...' if len(kniga.name) > 20 else kniga.name,
+            image_link=kniga.image_link,
+            price=kniga.price,
+        ))
+    return render_template('shop.html', kniga=book_views)
 
 if __name__ == '__main__':
     app.run(debug=True)
