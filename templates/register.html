@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <form method="POST">
+      <div class="main_reg">
+        <h1>Register</h1>
+        <p>Please fill in this form to create an account.</p>
+      </div>
+     
+        <table class="reg">
+          <tr>
+            <td>First name</td>
+            <td><input type="text" placeholder="Enter your name" name="Fname"></td>
+          </tr>
+          <tr>
+            <td>Surname</td>
+            <td><input type="text" placeholder="Enter your suname" name="surname"></td>
+          </tr>
+          <tr>
+            <td>Phone number</td>
+            <td><input type="text" placeholder="Enter your phone number" name="number"></td>
+          </tr>
+          <tr>
+            <td>password</td>
+            <td><input type="password" placeholder="Enter password" name="password"></td>
+          </tr>
+          <tr>
+            <td>password retype</td>
+            <td><input type="password" placeholder="Repeat password" name="password2"></td>
+          </tr>
+          <tr>
+            <td><a class="registerbtn" href="{{url_for('login_page')}}">Login</a></td>
+            <td><input class="registerbtn2" type="submit" value="Register"></td>
+          </tr>
+          <tr>
+            
+          </tr>
+        </table>
+        
+      </form>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class=flashes>
+          {% for message in messages %}
+            <li class="Error">{{ message }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+      
+</div>
+{% endblock%}

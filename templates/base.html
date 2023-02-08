@@ -14,17 +14,31 @@
 <body>
 
     <div class="page">
-
-        <ul class="top">
-            <li class="bar"><a href="{{url_for('main_page')}}">BookShelf</a></li> <!-- Image--> 
-            <li class="bar"><a class="active" href="{{url_for('shop')}}">Shop</a></li>
-            <li class="bar"><a href="#">Contact</a></li>
-            <li class="bar"><a href="#">About us</a></li>
-            <li class="barr"><a href="#">Registration</a></li>
-            <li class="barr"><a href="#">Login</a></li>
-            <li class="barr"><a href="#">Bucket</a></li>
-        </ul>
-
+        {% if boolen == True%}
+            <ul class="top">
+                <li class="bar"><a href="{{url_for('main_page')}}">BookShelf</a></li> <!-- Image--> 
+                <li class="bar"><a class="active" href="{{url_for('shop')}}">Shop</a></li>
+                <li class="bar"><a href="#">Contact</a></li>
+                <li class="bar"><a href="#">About us</a></li>
+                <li class="barr"><a href="{{url_for('register')}}">Registration</a></li>
+                <li class="barr"><a href="{{url_for('login_page')}}">Login</a></li>
+                <li class="barr"><a href="#">Bucket</a></li>
+                <li class="barr"><a href="{{url_for('logout')}}">logout</a></li>
+                <li class="barr"><a href="{{url_for('logout')}}">111111111111111111</a></li>
+            </ul>
+        {% else %}
+            <ul class="top">
+                <li class="bar"><a href="{{url_for('main_page')}}">BookShelf</a></li> <!-- Image--> 
+                <li class="bar"><a class="active" href="{{url_for('shop')}}">Shop</a></li>
+                <li class="bar"><a href="#">Contact</a></li>
+                <li class="bar"><a href="#">About us</a></li>
+                <li class="barr"><a href="{{url_for('register')}}">Registration</a></li>
+                <li class="barr"><a href="{{url_for('login_page')}}">Login</a></li>
+                <li class="barr"><a href="#">Bucket</a></li>
+                <li class="barr"><a href="{{url_for('logout')}}">logout</a></li>
+            </ul>
+        {% endif %}
+        
         {% block content %}
             {# Temlpate here #}
         {% endblock %}

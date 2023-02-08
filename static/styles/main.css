@@ -112,7 +112,7 @@ li a:hover:not(.active) {
 }
 
 .img {
-    width: 100%;
+    width: 80%;
     height: 70%;
 }
 
@@ -129,7 +129,6 @@ li a:hover:not(.active) {
   
 .button__buy {
       margin: 0 auto;
-      display: block;
       width: 80%;
       height: 33px;
       border-radius: 14px;
@@ -140,4 +139,64 @@ li a:hover:not(.active) {
       line-height: 81.51%;
       letter-spacing: 0.14em;
       box-sizing: border-box;
+}
+
+.shop_container{
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    top: 24%;
+}
+
+.main_reg{
+    text-align: center;
+    font-size: 150%;
+}
+
+.reg{
+    position: absolute;
+    top: 25%;
+    left: 38%;
+}
+
+.registerbtn {
+    background-color: #ae8300;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.registerbtn2 {
+    background-color: #ae8300;
+    color: white;
+    padding: 16px 7px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+    font-size: 110%;
+}
+
+
+td{
+    font-size: 150%;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+.Error{
+    text-align: center;
+    font-size: 200%;
+    color: #ae8300;
 }
