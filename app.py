@@ -1,9 +1,8 @@
 from dataclasses import dataclass
-import typing as t
-
+from cloudipsp import Api, Checkout
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user, login_manager
+from flask_login import UserMixin, LoginManager, login_user, login_required, logout_user
 from flask_migrate import Migrate
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -18,8 +17,11 @@ manager = LoginManager(app)
 @dataclass
 class BookView:
     name: str
+    description: str
+    author: str
     image_link: str
     price: int
+    url: str = ''
 
 
 class Book (db.Model):
@@ -45,7 +47,7 @@ class Order (db.Model):
 
 @manager.user_loader
 def load_user(user_id):
-    return person.query.get(user_id)
+    return person.query.get(int(user_id))
 
 
 @app.route("/", methods = ["GET","POST"])
@@ -55,15 +57,17 @@ def main_page():
     for kniga in knigs:
         book_views.append(BookView(
             name=f'{kniga.name[:10]}...' if len(kniga.name) > 10 else kniga.name,
+            description="",
+            author="",
             image_link=kniga.image_link,
             price=kniga.price,
+            url=url_for('book_page', id=kniga.id),
         ))
     return render_template('index.html', kniga=book_views)
 
 
 
 @app.route("/shop", methods = ["GET","POST"])
-@login_required
 def shop():
 
     knigs = Book.query.limit(6).all()
@@ -71,10 +75,35 @@ def shop():
     for kniga in knigs:
         book_views.append(BookView(
             name=f'{kniga.name[:10]}...' if len(kniga.name) > 10 else kniga.name,
+            description="",
+            author="",
             image_link=kniga.image_link,
             price=kniga.price,
+            url=url_for('book_page', id=kniga.id),
         ))
+   
     return render_template('shop.html', kniga=book_views)
+
+@app.route("/books/<int:id>",  methods = ["GET", "POST"])
+def book_page(id):
+    kniga = Book.query.filter_by(id = id).first()
+
+    return render_template("book_page.html", kniga=kniga)
+
+@app.route("/payment/<int:id>",  methods = ["GET", "POST"]) 
+@login_required
+def pay(id):
+    kniga = Book.query.filter_by(id = id).first()
+
+    api = Api(merchant_id=1396424,
+          secret_key='test')
+    checkout = Checkout(api=api)
+    data = {
+        "currency": "USD",
+        "amount": str(kniga.price) +"00"
+    }
+    url = checkout.url(data).get('checkout_url')
+    return redirect(url)
 
 
 @app.route("/login", methods = ["GET","POST"])
@@ -86,10 +115,13 @@ def login_page():
         user = person.query.filter_by(phone_number=phone_number).first()
         if user and check_password_hash(user.password, password):
             login_user(user)
-            return redirect(url_for('shop'))
+
+            next_page = request.args.get('next')
+            redirect(next_page)
         else:
             flash('Login or password is not correct')
-
+    else:
+        flash('Please fill the fields')
     return render_template('login.html')
 
 @app.route("/register", methods = ["GET","POST"])
@@ -120,7 +152,8 @@ def register():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('login_page'))
+    return redirect(url_for('main_page'))
+
 
 @app.after_request
 def redirect_to_signin(response):
@@ -128,6 +161,12 @@ def redirect_to_signin(response):
         return redirect(url_for('login_page') + '?next=' + request.url)
 
     return response
+
+@app.route("/contact")
+def contact():
+    return render_template('contact.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

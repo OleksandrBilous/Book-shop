@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <div class="book_page_main">
+        <img class="picture" src={{kniga.image_link}}>
+        <p class="book_price2">{{kniga.price}} $</p>
+    </div>
+   
+    <div class="info_block">
+        <span><p class="Book_name">{{kniga.name}}</p></span>
+        <p>{{kniga.author}}</p>
+        <p class="main_p">{{kniga.description}}</p>
+        <a class="main_button3" href="/payment/{{kniga.id}}">Buy it</a>  
+
+    </div>
+
+    
+
+</div>
+
+{% endblock%}

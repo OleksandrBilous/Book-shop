@@ -8,34 +8,27 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
 
-    <link rel="stylesheet" href="static/styles/main.css">
+    <link rel="stylesheet" href="/static/styles/main.css">
     <title>Home page</title>
 </head>
 <body>
 
     <div class="page">
-        {% if boolen == True%}
+        {% if current_user.is_authenticated %}
             <ul class="top">
                 <li class="bar"><a href="{{url_for('main_page')}}">BookShelf</a></li> <!-- Image--> 
                 <li class="bar"><a class="active" href="{{url_for('shop')}}">Shop</a></li>
-                <li class="bar"><a href="#">Contact</a></li>
-                <li class="bar"><a href="#">About us</a></li>
-                <li class="barr"><a href="{{url_for('register')}}">Registration</a></li>
-                <li class="barr"><a href="{{url_for('login_page')}}">Login</a></li>
-                <li class="barr"><a href="#">Bucket</a></li>
+                <li class="bar"><a href="{{url_for('contact')}}">Contact</a></li>
                 <li class="barr"><a href="{{url_for('logout')}}">logout</a></li>
-                <li class="barr"><a href="{{url_for('logout')}}">111111111111111111</a></li>
+                <li class="barr"><a class="active">Welcome, {{ current_user.name}}</a></li>
             </ul>
         {% else %}
             <ul class="top">
                 <li class="bar"><a href="{{url_for('main_page')}}">BookShelf</a></li> <!-- Image--> 
                 <li class="bar"><a class="active" href="{{url_for('shop')}}">Shop</a></li>
-                <li class="bar"><a href="#">Contact</a></li>
-                <li class="bar"><a href="#">About us</a></li>
+                <li class="bar"><a href="{{url_for('contact')}}">Contact</a></li>
                 <li class="barr"><a href="{{url_for('register')}}">Registration</a></li>
                 <li class="barr"><a href="{{url_for('login_page')}}">Login</a></li>
-                <li class="barr"><a href="#">Bucket</a></li>
-                <li class="barr"><a href="{{url_for('logout')}}">logout</a></li>
             </ul>
         {% endif %}
         
