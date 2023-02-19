@@ -52,55 +52,55 @@ def load_user(user_id):
 
 @app.route("/", methods = ["GET","POST"])
 def main_page():
-    knigs = Book.query.limit(3).all()
+    books = Book.query.limit(3).all()
     book_views = []
-    for kniga in knigs:
+    for book in books:
         book_views.append(BookView(
-            name=f'{kniga.name[:10]}...' if len(kniga.name) > 10 else kniga.name,
+            name=f'{book.name[:10]}...' if len(book.name) > 10 else book.name,
             description="",
             author="",
-            image_link=kniga.image_link,
-            price=kniga.price,
-            url=url_for('book_page', id=kniga.id),
+            image_link=book.image_link,
+            price=book.price,
+            url=url_for('book_page', id=book.id),
         ))
-    return render_template('index.html', kniga=book_views)
+    return render_template('index.html', book=book_views)
 
 
 
 @app.route("/shop", methods = ["GET","POST"])
 def shop():
 
-    knigs = Book.query.limit(6).all()
+    books = Book.query.limit(6).all()
     book_views = []
-    for kniga in knigs:
+    for book in books:
         book_views.append(BookView(
-            name=f'{kniga.name[:10]}...' if len(kniga.name) > 10 else kniga.name,
+            name=f'{book.name[:10]}...' if len(book.name) > 10 else book.name,
             description="",
             author="",
-            image_link=kniga.image_link,
-            price=kniga.price,
-            url=url_for('book_page', id=kniga.id),
+            image_link=book.image_link,
+            price=book.price,
+            url=url_for('book_page', id=book.id),
         ))
    
-    return render_template('shop.html', kniga=book_views)
+    return render_template('shop.html', book=book_views)
 
 @app.route("/books/<int:id>",  methods = ["GET", "POST"])
 def book_page(id):
-    kniga = Book.query.filter_by(id = id).first()
+    book = Book.query.filter_by(id = id).first()
 
-    return render_template("book_page.html", kniga=kniga)
+    return render_template("book_page.html", book=book)
 
 @app.route("/payment/<int:id>",  methods = ["GET", "POST"]) 
 @login_required
 def pay(id):
-    kniga = Book.query.filter_by(id = id).first()
+    book = Book.query.filter_by(id = id).first()
 
     api = Api(merchant_id=1396424,
           secret_key='test')
     checkout = Checkout(api=api)
     data = {
         "currency": "USD",
-        "amount": str(kniga.price) +"00"
+        "amount": str(book.price) +"00"
     }
     url = checkout.url(data).get('checkout_url')
     return redirect(url)
