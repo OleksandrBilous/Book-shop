@@ -2,7 +2,7 @@ name: Scheduled Testim Tests
 
 on:
   schedule:
-    - cron: '0 22 * * *
+    - cron: '0 22 * * *' 
 
 jobs:
   testim-test:
@@ -13,7 +13,7 @@ jobs:
 
     - name: Run Testim Tests
       env:
-        TESTIM_TOKEN: ${{ secrets.PAK-zXapirxAvOK4F0-KSV07s5tKQYcDMM9D1OL9+HL6fmrQ4zfzGuWd0zFvUBHviQNDWaCL3o10guSqafEK9 }}
-        TESTIM_PROJECT_ID: ${{ secrets.BhnXj0QMB9eZJeorzeOV }}
+        TESTIM_TOKEN: ${{ secrets.TESTIM_TOKEN }}
+        TESTIM_PROJECT_ID: ${{ secrets.TESTIM_PROJECT_ID }}
       run: |
-        npx testim-cli --token "${PAK-zXapirxAvOK4F0-KSV07s5tKQYcDMM9D1OL9+HL6fmrQ4zfzGuWd0zFvUBHviQNDWaCL3o10guSqafEK9}" --project "${BhnXj0QMB9eZJeorzeOV}" --grid "Testim-Grid" --suite "bookstore"
+        npx testim-cli --token "${{ secrets.TESTIM_TOKEN }}" --project "${{ secrets.TESTIM_PROJECT_ID }}" --grid "Testim-Grid" --suite "bookstore"
