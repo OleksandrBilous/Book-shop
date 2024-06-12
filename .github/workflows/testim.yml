@@ -10,22 +10,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v3.0.0  
       with:
         node-version: '20'
+        cache: 'npm'
 
     - name: Checkout Code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3.0.0  
 
-    - name: Check Node.js Version and Global npm Packages
-      run: |
-        node -v
-        npm list -g --depth=0
+    - name: Verify Node.js Version
+      run: node -v 
 
-    - name: Install and Run Testim CLI
+    - name: Check Global npm Packages
+      run: npm list -g --depth=0  
+
+    - name: Install Testim CLI
+      run: npm install -g testim-cli
+
+    - name: Run Testim Tests
       env:
         TESTIM_TOKEN: ${{ secrets.TESTIM_TOKEN }}
         TESTIM_PROJECT_ID: ${{ secrets.TESTIM_PROJECT_ID }}
       run: |
-        npm install -g testim-cli
         testim-cli --token "${{ secrets.TESTIM_TOKEN }}" --project "${{ secrets.TESTIM_PROJECT_ID }}" --grid "Testim-Grid" --suite "bookstore"
