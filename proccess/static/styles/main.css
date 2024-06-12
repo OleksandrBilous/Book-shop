@@ -176,8 +176,7 @@ li a:hover:not(.active) {
     left: 38%;
 }
 
-.registerbtn {
-    background-color: #ae8300;
+.registerbtn, .registerbtn22 {
     color: white;
     padding: 16px 20px;
     margin: 8px 0;
@@ -185,20 +184,27 @@ li a:hover:not(.active) {
     cursor: pointer;
     width: 100%;
     opacity: 0.9;
+    transition: opacity 0.3s ease;
 }
 
-.registerbtn2 {
+.registerbtn {
     background-color: #ae8300;
-    color: white;
+}
+
+.registerbtn:hover {
+    opacity: 1;
+}
+
+.registerbtn22 {
+    background-color: #0088ff;
+    border-radius: 7px;
     padding: 16px 7px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    opacity: 0.9;
     font-size: 110%;
 }
 
+.registerbtn22:hover {
+    opacity: 1;
+}
 
 td{
     font-size: 150%;
