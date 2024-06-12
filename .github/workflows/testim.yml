@@ -2,7 +2,8 @@ name: Scheduled Testim Tests
 
 on:
   schedule:
-    - cron: '0 22 * * *' 
+    - cron: '0 22 * * *'
+  workflow_dispatch:
 
 jobs:
   testim-test:
