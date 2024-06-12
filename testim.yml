@@ -1,0 +1,19 @@
+name: Scheduled Testim Tests
+
+on:
+  schedule:
+    - cron: '0 22 * * *' 
+
+jobs:
+  testim-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Run Testim Tests
+      env:
+        TESTIM_TOKEN: ${{ secrets.TESTIM_TOKEN }}
+        TESTIM_PROJECT_ID: ${{ secrets.TESTIM_PROJECT_ID }}
+      run: |
+        npx testim-cli --token "${{ secrets.TESTIM_TOKEN }}" --project "${{ secrets.TESTIM_PROJECT_ID }}" --grid "Testim-Grid" --suite "bookstore"
