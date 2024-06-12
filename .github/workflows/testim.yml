@@ -17,7 +17,12 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Run Testim Tests
+    - name: Check Node.js Version and Global npm Packages
+      run: |
+        node -v
+        npm list -g --depth=0
+
+    - name: Install and Run Testim CLI
       env:
         TESTIM_TOKEN: ${{ secrets.TESTIM_TOKEN }}
         TESTIM_PROJECT_ID: ${{ secrets.TESTIM_PROJECT_ID }}
