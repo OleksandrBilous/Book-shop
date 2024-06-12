@@ -10,19 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Setup Node.js
-      uses: actions/setup-node@v3.0.0  
+      uses: actions/setup-node@v3.0.0
       with:
         node-version: '20'
-        cache: 'npm'
 
     - name: Checkout Code
-      uses: actions/checkout@v3.0.0  
+      uses: actions/checkout@v3.0.0
 
     - name: Verify Node.js Version
-      run: node -v 
+      run: node -v
 
     - name: Check Global npm Packages
-      run: npm list -g --depth=0  
+      run: npm list -g --depth=0
 
     - name: Install Testim CLI
       run: npm install -g testim-cli
