@@ -1,34 +1,14 @@
-name: Scheduled Testim Tests
-
-on:
-  schedule:
-    - cron: '0 22 * * *'
-  workflow_dispatch:
+name: Testim E2E
+on: [push]
 
 jobs:
-  testim-test:
-    runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true 
-    steps:
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20.x'  
-
-    - name: Checkout Code
-      uses: actions/checkout@v3
-
-    - name: Verify Node.js Version
-      run: |
-        echo "Node Version: $(node -v)"  # Output the version of Node to confirm
-        echo "NPM Version: $(npm -v)"
-
-    - name: Install Testim CLI
-      run: npm install -g testim-cli  
-    - name: Run Testim Tests
-      env:
-        TESTIM_TOKEN: ${{ secrets.TESTIM_TOKEN }}
-        TESTIM_PROJECT_ID: ${{ secrets.TESTIM_PROJECT_ID }}
-      run: |
-        testim-cli --token "${{ secrets.TESTIM_TOKEN }}" --project "${{ secrets.TESTIM_PROJECT_ID }}" --grid "Testim-Grid" --suite "bookstore"
+    run-testimio-cli:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v4
+              with:
+                node-version: 'lts'
+                # You can also change 'lts' to any supported LTS Node.js version.
+            - run: npm install -g @testim/testim-cli
+            - run: testim --token "UKtdnJpqHLlg9vOBycbsRiWDz7AxieM6L67pfZ3dQ4mnPlJmVF" --project "BhnXj0QMB9eZJeorzeOV" --grid "Testim-Grid" --mode "extension"
