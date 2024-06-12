@@ -9,12 +9,18 @@ jobs:
   testim-test:
     runs-on: ubuntu-latest
     steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Run Testim Tests
       env:
         TESTIM_TOKEN: ${{ secrets.TESTIM_TOKEN }}
         TESTIM_PROJECT_ID: ${{ secrets.TESTIM_PROJECT_ID }}
       run: |
-        npx testim-cli --token "${{ secrets.TESTIM_TOKEN }}" --project "${{ secrets.TESTIM_PROJECT_ID }}" --grid "Testim-Grid" --suite "bookstore"
+        npm install -g testim-cli
+        testim-cli --token "${{ secrets.TESTIM_TOKEN }}" --project "${{ secrets.TESTIM_PROJECT_ID }}" --grid "Testim-Grid" --suite "bookstore"
